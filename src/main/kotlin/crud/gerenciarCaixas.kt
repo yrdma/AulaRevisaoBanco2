@@ -2,7 +2,36 @@ package org.example.crud
 
 import org.example.entidades.CaixaDAgua
 import org.example.enumeradores.Material
+import java.sql.Connection
 
+
+fun criarTabelaCaixa(){
+    val conectar = EntidadeJDBC(
+        url = "jdbc:postgresql://localhost:5432/postgres",
+        usuario = "postgres",
+        senha = "postgres"
+    )
+
+
+    val sql = "CREATE TABLE IF NOT EXISTS CaixaDAgua " +
+            " (id serial NOT NULL PRIMARY KEY," +
+            " material varchar(255)," +
+            " cor varchar(255)," +
+            " peso float," +
+            " preco varchar(255)," +
+            " altura float," +
+            " largura float," +
+            " profundidade float," +
+            " tampa varchar(255)," +
+            " capacidade int," +
+            " marca varchar(255)" +
+            ")"
+    val banco = conectar.conectarComBanco()
+    val enviarParaBanco = banco!!.createStatement().execute(sql)
+
+    println(enviarParaBanco)
+
+}
 fun cadastrarCaixa(){
     /*
     val material : Material,
