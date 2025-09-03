@@ -1,5 +1,7 @@
 package org.example.ui
 
+import org.example.crud.cadastrarCaixa
+
 fun menu(){
 
 
@@ -14,7 +16,10 @@ fun menu(){
 
         when (opcao) {
             0 -> println("Sair")
-            1 -> println("Cadastrando Caixa...")
+            1 -> {
+                println("Cadastrando Caixa...")
+                cadastrarCaixa()
+            }
             2 -> println("Editando Caixa...")
             3 -> println("listando Caixas...")
             4 -> println("Excluindo Caixa...")

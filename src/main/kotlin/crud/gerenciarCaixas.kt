@@ -4,13 +4,14 @@ import org.example.entidades.CaixaDAgua
 import org.example.enumeradores.Material
 import java.sql.Connection
 
+val conectar = EntidadeJDBC(
+    url = "jdbc:postgresql://localhost:5432/postgres",
+    usuario = "postgres",
+    senha = "postgres"
+)
 
 fun criarTabelaCaixa(){
-    val conectar = EntidadeJDBC(
-        url = "jdbc:postgresql://localhost:5432/postgres",
-        usuario = "postgres",
-        senha = "postgres"
-    )
+
 
 
     val sql = "CREATE TABLE IF NOT EXISTS CaixaDAgua " +
@@ -33,19 +34,7 @@ fun criarTabelaCaixa(){
 
 }
 fun cadastrarCaixa(){
-    /*
-    val material : Material,
-    val cor : String,
-    val peso : Double,
-    val preco : BigDecimal,
-    val altura : Double,
-    val largura : Double,
-    val profundidade : Double,
-    val tampa : String,
-    val capacidade : Int,
-    val marca : String,
-    *
-     */
+
     println("Escolha o materias da Caixa D' Água" )
     println("1 - Polietileno")
     println("2 - Plastico")
@@ -88,8 +77,10 @@ fun cadastrarCaixa(){
     println("Digite o marca da Caixa D' Água")
     val marca = readln()
 
+
+
     //Salvar as Variaveis dentro da classe
-    CaixaDAgua(
+    val c = CaixaDAgua(
         material = material,
         cor = cor,
         peso = peso,
@@ -101,6 +92,37 @@ fun cadastrarCaixa(){
         capacidade = capacidade,
         marca = marca
     )
+    /*
+    val material : Material,
+    val cor : String,
+    val peso : Double,
+    val preco : BigDecimal,
+    val altura : Double,
+    val largura : Double,
+    val profundidade : Double,
+    val tampa : String,
+    val capacidade : Int,
+    val marca : String,
+    *
+     */
+    val banco = conectar.conectarComBanco()!!.prepareStatement(
+        "INSERT INTO CaixaDAgua" +
+                " (material, cor, peso, preco, altura, largura, profundidade, tampa, capacidade, marca)" +
+                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+    )
+        banco.setString(1, c.material.name)
+        banco.setString(2, c.cor)
+        banco.setDouble(3, c.peso)
+        banco.setString(4, c.preco.toString())
+        banco.setDouble(5, c.altura)
+        banco.setDouble(6, c.largura)
+        banco.setDouble(7, c.profundidade)
+        banco.setString(8, c.tampa)
+        banco.setInt(9, c.capacidade)
+        banco.setString(10, c.marca)
+        banco.executeUpdate()//isso fara um COMMIT no banco
+        banco.close()
+
 }
 
 fun editarCaixa(){
