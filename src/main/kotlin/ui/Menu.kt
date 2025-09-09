@@ -1,6 +1,9 @@
 package org.example.ui
 
 import org.example.crud.cadastrarCaixa
+import org.example.crud.editarCaixa
+import org.example.crud.excluirCaixa
+import org.example.crud.listarCaixas
 
 fun menu(){
 
@@ -16,13 +19,13 @@ fun menu(){
 
         when (opcao) {
             0 -> println("Sair")
-            1 -> {
-                println("Cadastrando Caixa...")
-                cadastrarCaixa()
-            }
-            2 -> println("Editando Caixa...")
-            3 -> println("listando Caixas...")
-            4 -> println("Excluindo Caixa...")
+            1 -> cadastrarCaixa()
+
+            2 -> editarCaixa()
+
+            3 -> listarCaixas()
+
+            4 -> excluirCaixa()
             else-> println("Numero Invalido")
 
         }
