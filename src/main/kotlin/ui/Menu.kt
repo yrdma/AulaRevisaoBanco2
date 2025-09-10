@@ -19,7 +19,7 @@ fun menu(){
 
         when (opcao) {
             0 -> println("Sair")
-            1 -> cadastrarCaixa()
+            1 -> cadastrarCaixa(0)
 
             2 -> editarCaixa()
 
